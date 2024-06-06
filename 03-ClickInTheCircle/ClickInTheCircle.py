@@ -13,7 +13,7 @@ def distance(point1, point2):
     #       distance = sqrt(   (delta x) ** 2 + (delta y) ** 2  )
     delta_x = point2_x - point1_x
     delta_y = point2_y - point1_y
-    dist = math.sqrt(delta_x ** 2 - delta_y ** 2)
+    dist = math.sqrt(delta_x ** 2 + delta_y ** 2)
 
     return dist
 
@@ -25,7 +25,8 @@ def main():
     pygame.display.set_caption("Mouse click positions")
     font = pygame.font.Font(None, 25)
 
-    # TODO 8: Load the "drums.wav" file into the pygame music mixer
+    # Done 8: Load the "drums.wav" file into the pygame music mixer
+    pygame.mixer.music.load("drums.wav")
 
     instruction_text = 'Click in the circle'
     text_color = (222, 222, 0)
@@ -54,20 +55,23 @@ def main():
                 # Done 5: If distance_from_circle is less than or equal to circle_radius, set message_text to 'Bullseye!'
                 if distance_from_circle <= circle_radius:
                     message_text = "Bullseye!"
+                    pygame.mixer.music.play(-1)
                 else:
                     message_text = "You Missed!"
+                    pygame.mixer.music.stop()
                 # Done 5: If distance_from_circle is greater than the circle_radius, set the message_text to 'You missed!'
-                # TODO 9: Start playing the music mixer looping forever if the click is within the circle
-                # TODO 10: Stop playing the music if the click is outside the circle
+                # Done 9: Start playing the music mixer looping forever if the click is within the circle
+
+                # Done 10: Stop playing the music if the click is outside the circle
 
         screen.fill(pygame.Color("Black"))
 
         # Done 1: Draw the circle using the screen, circle_color, circle_center, circle_radius, and circle_border_width
         pygame.draw.circle(screen, circle_color, circle_center, circle_radius, circle_border_width)
-        # TODO 6: Create a text image (render the text) based on the message_text with the color (122, 237, 201)
+        # Done 6: Create a text image (render the text) based on the message_text with the color (122, 237, 201)
         caption1 = font.render(message_text, True, (122, 237, 201))
         screen.blit(caption1, (25, 25))
-        # TODO 7: Draw (blit) the message to the user that says 'Bullseye!' or 'You missed!'
+        # Done 7: Draw (blit) the message to the user that says 'Bullseye!' or 'You missed!'
 
         pygame.display.update()
 
