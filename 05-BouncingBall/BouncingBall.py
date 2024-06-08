@@ -6,14 +6,16 @@ import random
 
 # You will implement this module ENTIRELY ON YOUR OWN!
 
-# TODO: Create a Ball class.
+# Done: Create a Ball class.
 class Ball:
-    def __init__(self, screen, x, y):
+    def __init__(self, screen):
         self.screen = screen
-        self.x = x
-        self.y = y
-        self.radius = random.randint(1,50)
-
+        self.x = random.randint(300,600)
+        self.y = random.randint(300,700)
+        self.radius = random.randint(1,180)
+        self.color_1 = random.randint(0,255)
+        self.color_2 = random.randint(0, 255)
+        self.color_3 = random.randint(0, 255)
 
         self.speed_y = random.randint(1,5)
 
@@ -32,7 +34,7 @@ class Ball:
 
 
     def draw(self):
-        pygame.draw.circle(self.screen, (200, 0, 200), (self.x, self.y), self.radius)
+        pygame.draw.circle(self.screen, (self.color_1, self.color_2, self.color_3), (self.x, self.y), self.radius)
 
 
 
@@ -43,33 +45,46 @@ class Ball:
 
 
 
-# TODO: Possible member variables: screen, color, x, y, radius, speed_x, speed_y
-# TODO: Methods: __init__, draw, move
+# Done: Possible member variables: screen, color, x, y, radius, speed_x, speed_y
+# Done: Methods: __init__, draw, move
 
 
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((300, 300))
+    screen = pygame.display.set_mode((1000, 800))
     pygame.display.set_caption('Bouncing Ball')
     screen.fill(pygame.Color('gray'))
     clock = pygame.time.Clock()
-    ball = Ball(screen, screen.get_width()/2,screen.get_height()/2)
+    ball = Ball(screen)
 
-    # TODO: Create an instance of the Ball class called ball1
+
+    # Done: Create an instance of the Ball class called ball1
+    balls = []
+    balls.append(ball)
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    balls.append(Ball(screen))
+                print(event.key)
+                if event.key == pygame.K_DELETE:
+                    print("Delete")
+                    if len(balls) > 0:
+                        balls.pop(0)
+
 
         clock.tick(60)
         screen.fill(pygame.Color('gray'))
 
-        # TODO: Move the ball
-        ball.draw()
-        ball.move()
+        # Done: Move the ball
+        for ball in balls:
+            ball.draw()
+            ball.move()
 
-        # TODO: Draw the ball
+        # Done: Draw the ball
 
         pygame.display.update()
 
